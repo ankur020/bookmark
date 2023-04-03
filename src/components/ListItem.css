@@ -1,0 +1,15 @@
+.list{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+/* .link{
+  overflow: hidden;
+  height: 1.1rem;
+} */
