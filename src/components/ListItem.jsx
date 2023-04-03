@@ -1,7 +1,7 @@
 import React from "react";
 import "./ListItem.css";
 
-const ListItem = ({ item, index, onDelete }) => {
+const ListItem = ({ item, index, onDelete, }) => {
   const handleDeleteOne = () => {
     console.log(index);
     onDelete(index);
@@ -9,8 +9,8 @@ const ListItem = ({ item, index, onDelete }) => {
   return (
     <div className="list">
       <div className="link">
-        <a target="_blank" href={item}>
-          {item}
+        <a target="_blank" href={item.link}>
+          {item.name}
         </a>
       </div>
       <div className="del-btn">

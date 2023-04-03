@@ -5,6 +5,7 @@ import { useState } from "react";
 
 export default function App() {
   let myLeads = [];
+
   const [myList, setMyList] = useState(myLeads.length);
   const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"));
 
@@ -14,19 +15,31 @@ export default function App() {
   }
 
   const [input, setInput] = useState("");
+  const [name, setName] = useState("");
+
   const handleInput = (e) => {
     setInput(e.target.value);
   };
+
+  const handleName = (e) => {
+    setName(e.target.value);
+  };
   const saveInput = (e) => {
     e.preventDefault();
-    myLeads.push(input);
+    myLeads = [...myLeads, { name: name, link: input }];
+    //console.log(myLeads);
     setInput("");
+    setName("");
     localStorage.setItem("myLeads", JSON.stringify(myLeads));
     setMyList(myLeads.length);
   };
   const handleTab = (e) => {
     e.preventDefault();
-    myLeads.push(window.location.toString());
+    // setInput(window.location.toString());
+    // setName(window.document.title.toString());
+    myLeads = [...myLeads, { name: window.document.title.toString(), link: window.location.toString() }];
+    console.log(myLeads)
+    //myLeads.push(window.location.toString());
     localStorage.setItem("myLeads", JSON.stringify(myLeads));
     setMyList(myLeads.length);
   };
@@ -40,10 +53,11 @@ export default function App() {
   const handleDeleteOne = (index) => {
     //console.log(index);
     myLeads.splice(index, 1);
-    console.log(myLeads);
+    //console.log(myLeads);
     localStorage.setItem("myLeads", JSON.stringify(myLeads));
     setMyList(myLeads.length);
   };
+
   useEffect(() => {
     setMyList(myLeads.length);
   }, [myList]);
@@ -52,10 +66,16 @@ export default function App() {
       <form>
         <input
           type="text"
-          id="input-el"
+          className="input-el"
           placeholder="Your link here..."
           value={input}
           onChange={handleInput}
+        />
+        <input
+          type="text"
+          placeholder="Your name here..."
+          value={name}
+          onChange={handleName}
         />
         <div className="btn-container">
           <button
@@ -66,8 +86,12 @@ export default function App() {
           >
             SAVE INPUT
           </button>
-
-          <button id="tab-btn" onClick={handleTab} className="btn">
+          <button
+            id="tab-btn"
+            onClick={handleTab}
+            className="btn"
+            type="submit"
+          >
             SAVE TAB
           </button>
           <button id="delete-btn" onClick={handleDelete} className="btn">
